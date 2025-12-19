@@ -8,6 +8,7 @@ namespace FLASH_NAMESPACE {
 
 template<>
 void run_mha_fwd_<cutlass::half_t, 256, true>(Flash_fwd_params &params, cudaStream_t stream) {
+    printf("dtype = cutlass::half_t, head dim = 256\n");
     // run_mha_fwd_hdim256<cutlass::half_t, true>(params, stream);
 }
 
