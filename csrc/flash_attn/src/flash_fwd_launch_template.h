@@ -165,6 +165,9 @@ void run_mha_fwd_splitkv_dispatch(Flash_fwd_params &params, cudaStream_t stream)
 
 template<>
 void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream) {
+    using T = cutlass::half_t;
+    constexpr static int Headdim = 128;
+    constexpr static bool Is_causal = false;
     constexpr static int kBlockM = 64;  // Fixed for all head dimensions
     // TD [2023-08-28]: nvcc segfaults for headdim 96 with block size 64 x 256,
     // and for headdim 192 with block size 64 x 128.
@@ -174,6 +177,9 @@ void run_mha_fwd_splitkv_dispatch<cutlass::half_t, 128, false>(Flash_fwd_params 
 
 template<>
 void run_mha_fwd_splitkv_dispatch<cutlass::bfloat16_t, 128, false>(Flash_fwd_params &params, cudaStream_t stream) {
+    using T = cutlass::bfloat16_t;
+    constexpr static int Headdim = 128;
+    constexpr static bool Is_causal = false;
     constexpr static int kBlockM = 64;  // Fixed for all head dimensions
     // TD [2023-08-28]: nvcc segfaults for headdim 96 with block size 64 x 256,
     // and for headdim 192 with block size 64 x 128.
